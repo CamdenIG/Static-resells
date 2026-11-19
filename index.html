@@ -20,7 +20,8 @@ header{display:flex;justify-content:space-between;align-items:center;padding:16p
 .logo{font-family:'Archivo Black',sans-serif;font-size:1.25rem;text-decoration:none}
 nav{display:flex;gap:18px;align-items:center}
 nav a{text-decoration:none;font-weight:500}
-.cartbtn{background:var(--bone);color:var(--ink);border:0;border-radius:99px;padding:8px 16px;font-weight:700}
+.cartbtn{background:#fff;color:var(--ink);border:0;border-radius:99px;padding:8px 16px;font-weight:700;box-shadow:0 0 16px rgba(157,77,255,.8);transition:transform .15s,box-shadow .15s}
+.cartbtn:hover{transform:translateY(-2px) rotate(2deg);box-shadow:0 0 26px #9d4dff}
 .hero{padding:48px 20px 28px;max-width:1200px;margin:0 auto}
 .hero h1{font-size:clamp(3.4rem,17vw,13rem);text-transform:uppercase}
 .hero h1 span{display:block}
@@ -32,6 +33,25 @@ nav a{text-decoration:none;font-weight:500}
 .b2{width:clamp(40px,9vw,110px);right:24%;top:60%;transform:rotate(-14deg);animation-delay:1.2s;opacity:.6}
 @keyframes zap{0%,100%{opacity:.9}46%{opacity:.9}48%{opacity:.2}50%{opacity:1}53%{opacity:.35}56%{opacity:.95}}
 .hero p{max-width:34ch;font-size:1.15rem;margin:24px 0}
+nav a.ttbtn{background:#fff;color:var(--ink);font-weight:700;border-radius:99px;padding:7px 14px;box-shadow:0 0 16px rgba(157,77,255,.8);transition:transform .15s,box-shadow .15s}
+nav a.ttbtn:hover{transform:translateY(-2px) rotate(-2deg);box-shadow:0 0 26px #9d4dff}
+@media (max-width:520px){header{padding:14px}nav{gap:9px;font-size:.88rem}.logo{font-size:1rem}.cartbtn{padding:7px 11px}nav a.ttbtn{padding:6px 11px}}
+.tt{position:fixed;inset:0;z-index:20;background:radial-gradient(ellipse at 50% 100%,rgba(157,77,255,.4),transparent 60%),#08050d;overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
+.tt[hidden]{display:none}
+.tt.show{animation:ttin .35s ease both}
+.tt.hide{animation:ttout .35s ease both}
+@keyframes ttin{from{opacity:0}to{opacity:1}}
+@keyframes ttout{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion:no-preference){.tt.show .ttc{animation:ttup .5s ease both}}
+@keyframes ttup{from{transform:translateY(16px)}to{transform:none}}
+.back{align-self:flex-start;background:#fff;color:var(--ink);font-weight:700;border-radius:99px;padding:10px 24px;text-decoration:none;box-shadow:0 0 22px rgba(157,77,255,.7)}
+.ttc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;max-width:640px;margin:0 auto}
+.ttc h2{font-size:clamp(2rem,8vw,3.6rem);line-height:1}
+.arrow{width:56px;stroke:var(--hot);fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 12px #9d4dff);animation:bob 1.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(12px)}}
+.handle{font-family:'Archivo Black','Arial Black',sans-serif;font-size:clamp(1.3rem,6vw,2.4rem);color:var(--hot);text-shadow:0 0 24px rgba(157,77,255,.8);text-decoration:none;word-break:break-all}
+.tip{position:relative;z-index:1;display:flex;gap:10px;align-items:flex-start;max-width:36ch;border:1.5px solid var(--hot);border-radius:14px;padding:12px 16px;margin:0 0 18px;background:rgba(157,77,255,.14);box-shadow:0 0 22px rgba(157,77,255,.35)}
+.tip b{background:var(--hot);color:var(--ink);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:99px;flex:none;margin-top:2px}
 .cta{display:inline-block;background:var(--hot);color:var(--ink);text-decoration:none;font-weight:700;padding:14px 26px;border-radius:99px;border:0}
 .ticker{overflow:hidden;background:var(--hot);color:var(--ink);padding:14px 0;white-space:nowrap;margin:36px 0}
 .ticker div{display:inline-block;animation:run 26s linear infinite;font-family:'Archivo Black',sans-serif;font-size:1.5rem}
@@ -62,8 +82,9 @@ section{max-width:1200px;margin:0 auto;padding:20px}
 footer{max-width:1200px;margin:0 auto;padding:40px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
 footer form{display:flex;gap:8px}
 footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inherit}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#150d20;border-left:1px solid var(--line);transform:translateX(100%);transition:transform .3s;z-index:10;padding:calc(20px + env(safe-area-inset-top,0px)) 20px 20px;display:flex;flex-direction:column}
-.drawer.open{transform:none}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#150d20;border-left:1px solid var(--line);z-index:10;padding:calc(20px + env(safe-area-inset-top,0px)) 20px 20px;flex-direction:column;display:none}
+.drawer.open{display:flex;animation:ttin .35s ease both}
+.drawer.closing{display:flex;animation:ttout .35s ease both}
 .drawer h2{font-size:2rem;margin-bottom:16px}
 .items{flex:1;overflow-y:auto}
 .row{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -71,14 +92,14 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
 .total{display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;padding:16px 0}
 .empty{opacity:.7}
 .close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:none;border:0;color:var(--bone);font-size:1.6rem}
-@media (prefers-reduced-motion:reduce){.ticker div,.bolt{animation:none}*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.ticker div,.bolt,.arrow{animation:none}*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="promo">↯ 20% OFF EVERYTHING ↯ APPLIED AT CHECKOUT ↯</div>
 <header>
   <a class="logo" href="#top"><svg viewBox="0 0 100 160" width="14" height="22" aria-hidden="true" style="vertical-align:-3px;margin-right:6px"><polygon points="60,0 10,90 45,90 30,160 90,60 55,60" fill="#9d4dff"/></svg>static resells</a>
-  <nav><a href="#shop">Shop</a><a href="#about">About</a><button class="cartbtn" id="open" aria-label="Open cart">Cart (<span id="count">0</span>)</button></nav>
+  <nav><a href="#shop">Shop</a><a class="ttbtn" href="#tiktok">@tiktok</a><a href="#about">About</a><button class="cartbtn" id="open" aria-label="Open cart">Cart (<span id="count">0</span>)</button></nav>
 </header>
 
 <main id="top">
@@ -87,6 +108,7 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
     <svg class="bolt b2" viewBox="0 0 100 160" aria-hidden="true"><polygon points="60,0 10,90 45,90 30,160 90,60 55,60"/></svg>
     <h1><span>Fresh</span><span class="o">finds.</span><span>Every week.</span></h1>
     <p>Sneakers, jackets, and gear you won’t see on every other feed. When a piece sells out, it’s gone.</p>
+    <div class="tip"><b>Tip</b><span>build a simple place where customers can discover your products and place an order💯😎</span></div>
     <a class="cta" href="#shop">Shop the drop</a>
   </div>
 
@@ -113,6 +135,15 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
   <div class="disp" style="font-size:1.6rem">static resells</div>
   <form id="news"><input type="email" placeholder="Email for drop alerts" aria-label="Email" required><button class="cta" type="submit">Join</button></form>
 </footer>
+
+<div class="tt" id="tt" role="dialog" aria-label="TikTok" hidden>
+  <a class="back" href="#top">back</a>
+  <div class="ttc">
+    <h2>Go follow this TikTok account, please and thank you.</h2>
+    <svg class="arrow" viewBox="0 0 60 90" aria-hidden="true"><path d="M30 4 V74 M8 52 L30 80 L52 52"/></svg>
+    <a class="handle" href="https://www.tiktok.com/@staticresellsofficial" target="_blank" rel="noopener">@staticresellsofficial</a>
+  </div>
+</div>
 
 <aside class="drawer" id="drawer" aria-label="Cart">
   <button class="close" id="close" aria-label="Close cart">×</button>
@@ -144,11 +175,16 @@ function drawCart(){
 $('filters').onclick=e=>{const c=e.target.dataset.c;if(c){cur=c;drawFilters();drawGrid()}};
 $('grid').onclick=e=>{const i=e.target.dataset.i;if(i!==undefined){cart.push(products[i]);drawCart();e.target.textContent='Added';setTimeout(()=>e.target.textContent='Add to cart',900)}};
 $('items').onclick=e=>{const k=e.target.dataset.k;if(k!==undefined){cart.splice(k,1);drawCart()}};
-$('open').onclick=()=>$('drawer').classList.add('open');
-$('close').onclick=()=>$('drawer').classList.remove('open');
+let cT;function showCart(on){const d=$('drawer');clearTimeout(cT);if(on){d.classList.remove('closing');d.classList.add('open')}else if(d.classList.contains('open')){d.classList.remove('open');d.classList.add('closing');cT=setTimeout(()=>d.classList.remove('closing'),350)}}
+$('open').onclick=()=>showCart(true);
+$('close').onclick=()=>showCart(false);
 $('checkout').onclick=()=>{if(cart.length){alert('Checkout isn’t connected yet. Add a payment provider to take real orders.')}};
 $('news').onsubmit=e=>{e.preventDefault();e.target.innerHTML='<strong>You’re on the list.</strong>'};
 drawFilters();drawGrid();drawCart();
+let ttT;function showTT(on){const t=$('tt');clearTimeout(ttT);document.body.style.overflow=on?'hidden':'';if(on){t.hidden=false;t.scrollTop=0;t.classList.remove('hide');t.classList.add('show')}else if(!t.hidden){t.classList.remove('show');t.classList.add('hide');ttT=setTimeout(()=>{t.hidden=true;t.classList.remove('hide')},350)}}
+document.querySelector('.ttbtn').addEventListener('click',e=>{e.preventDefault();showTT(true)});
+document.querySelector('.back').addEventListener('click',e=>{e.preventDefault();showTT(false)});
+addEventListener('keydown',e=>{if(e.key==='Escape')showTT(false)});
 </script>
 </body>
 </html>
