@@ -15,6 +15,7 @@ h1,h2,h3,.disp{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:
 a{color:inherit}
 button{font:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+.promo{background:var(--hot);color:var(--ink);text-align:center;font-family:'Archivo Black',sans-serif;font-size:.9rem;letter-spacing:.04em;padding:9px 12px}
 header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
 .logo{font-family:'Archivo Black',sans-serif;font-size:1.25rem;text-decoration:none}
 nav{display:flex;gap:18px;align-items:center}
@@ -74,6 +75,7 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
 </style>
 </head>
 <body>
+<div class="promo">↯ 20% OFF EVERYTHING ↯ APPLIED AT CHECKOUT ↯</div>
 <header>
   <a class="logo" href="#top"><svg viewBox="0 0 100 160" width="14" height="22" aria-hidden="true" style="vertical-align:-3px;margin-right:6px"><polygon points="60,0 10,90 45,90 30,160 90,60 55,60" fill="#9d4dff"/></svg>static resells</a>
   <nav><a href="#shop">Shop</a><a href="#about">About</a><button class="cartbtn" id="open" aria-label="Open cart">Cart (<span id="count">0</span>)</button></nav>
@@ -116,7 +118,7 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
   <button class="close" id="close" aria-label="Close cart">×</button>
   <h2>Your cart</h2>
   <div class="items" id="items"></div>
-  <div class="total"><span>Total</span><span id="total">$0</span></div>
+  <div class="total"><span>Total (20% off)</span><span id="total">$0</span></div>
   <button class="cta" id="checkout">Checkout</button>
 </aside>
 
@@ -129,7 +131,11 @@ const products=[
  {n:'Box Hoodie',d:'Hoodie, size XL',p:60,c:'Tops',bg:'#d9c2ff'},
  {n:'Vintage Tee',d:'Tee, size M',p:35,c:'Tops',bg:'#f2efe8',t:'New'},
  {n:'Sling Bag',d:'Bag, one size',p:45,c:'Gear',bg:'#9d4dff'},
- {n:'Dad Cap',d:'Cap, adjustable',p:25,c:'Gear',bg:'#c9a2ff'}
+ {n:'Dad Cap',d:'Cap, adjustable',p:25,c:'Gear',bg:'#c9a2ff'},
+ {n:'Cargo Pants',d:'Pants, size 32',p:55,c:'Clothing',bg:'#9d4dff',t:'New'},
+ {n:'Track Shorts',d:'Shorts, size M',p:30,c:'Clothing',bg:'#d9c2ff'},
+ {n:'Zip Fleece',d:'Fleece, size L',p:70,c:'Clothing',bg:'#b17bff'},
+ {n:'Crew Socks',d:'3-pack, one size',p:15,c:'Clothing',bg:'#f2efe8'}
 ];
 const cats=['All',...new Set(products.map(x=>x.c))];
 let cart=[],cur='All';
@@ -145,7 +151,7 @@ function drawGrid(){
 function drawCart(){
  $('count').textContent=cart.length;
  $('items').innerHTML=cart.length?cart.map((x,k)=>`<div class="row"><div>${x.n}<br><small>${x.d}</small></div><div>$${x.p}<br><button data-k="${k}">Remove</button></div></div>`).join(''):'<p class="empty">Your cart is empty. Grab something from the drop.</p>';
- $('total').textContent='$'+cart.reduce((a,x)=>a+x.p,0);
+ $('total').textContent='$'+(cart.reduce((a,x)=>a+x.p,0)*0.8).toFixed(2).replace('.00','');
 }
 $('filters').onclick=e=>{const c=e.target.dataset.c;if(c){cur=c;drawFilters();drawGrid()}};
 $('grid').onclick=e=>{const i=e.target.dataset.i;if(i!==undefined){cart.push(products[i]);drawCart();e.target.textContent='Added';setTimeout(()=>e.target.textContent='Add to cart',900)}};
