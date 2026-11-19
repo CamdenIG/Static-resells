@@ -17,7 +17,11 @@ button{font:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--hot);outline-offset:3px}
 .promo{background:var(--hot);color:var(--ink);text-align:center;font-family:'Archivo Black',sans-serif;font-size:.9rem;letter-spacing:.04em;padding:9px 12px}
 header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-.logo{font-family:'Archivo Black',sans-serif;font-size:1.25rem;text-decoration:none}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.lb{width:17px;height:27px;flex:none;fill:var(--hot);filter:drop-shadow(0 0 6px #9d4dff) drop-shadow(0 0 14px #9d4dff);animation:zap 3.5s infinite}
+.lt{display:flex;flex-direction:column;line-height:1}
+.l1{font-family:'Archivo Black','Arial Black',sans-serif;font-size:1.5rem;letter-spacing:.02em;color:#fff;text-shadow:2px 0 0 rgba(157,77,255,.85),-2px 0 0 rgba(255,255,255,.22),0 0 16px rgba(157,77,255,.9)}
+.l2{font-weight:700;font-size:.62rem;letter-spacing:.4em;color:var(--hot);margin-top:4px;text-shadow:0 0 10px rgba(157,77,255,.8)}
 nav{display:flex;gap:18px;align-items:center}
 nav a{text-decoration:none;font-weight:500}
 .cartbtn{background:#fff;color:var(--ink);border:0;border-radius:99px;padding:8px 16px;font-weight:700;box-shadow:0 0 16px rgba(157,77,255,.8);transition:transform .15s,box-shadow .15s}
@@ -33,9 +37,12 @@ nav a{text-decoration:none;font-weight:500}
 .b2{width:clamp(40px,9vw,110px);right:24%;top:60%;transform:rotate(-14deg);animation-delay:1.2s;opacity:.6}
 @keyframes zap{0%,100%{opacity:.9}46%{opacity:.9}48%{opacity:.2}50%{opacity:1}53%{opacity:.35}56%{opacity:.95}}
 .hero p{max-width:34ch;font-size:1.15rem;margin:24px 0}
+nav a.nl{display:inline-block;color:#fff;font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 17px 8px 13px;background:linear-gradient(100deg,#9d4dff,#4b1d99);border-radius:3px;transform:skewX(-14deg);text-shadow:none;box-shadow:0 0 14px rgba(157,77,255,.7),inset 0 0 0 1.5px rgba(255,255,255,.35);transition:transform .15s,box-shadow .15s,background .15s,color .15s}
+nav a.nl::before{content:"\21af";margin-right:6px}
+nav a.nl:hover{background:#fff;color:var(--ink);box-shadow:0 0 28px #9d4dff;transform:skewX(-14deg) translateY(-2px)}
 nav a.ttbtn{background:#fff;color:var(--ink);font-weight:700;border-radius:99px;padding:7px 14px;box-shadow:0 0 16px rgba(157,77,255,.8);transition:transform .15s,box-shadow .15s}
 nav a.ttbtn:hover{transform:translateY(-2px) rotate(-2deg);box-shadow:0 0 26px #9d4dff}
-@media (max-width:520px){header{padding:14px}nav{gap:9px;font-size:.88rem}.logo{font-size:1rem}.cartbtn{padding:7px 11px}nav a.ttbtn{padding:6px 11px}}
+@media (max-width:520px){header{padding:12px 14px;flex-wrap:wrap;row-gap:10px}nav{gap:8px;font-size:.85rem;width:100%;justify-content:space-between}.l1{font-size:1.15rem}.l2{font-size:.5rem;letter-spacing:.3em}.lb{width:13px;height:21px}.cartbtn{padding:7px 11px}nav a.ttbtn{padding:6px 11px}nav a.nl{padding:7px 13px 7px 10px;font-size:.74rem}nav a.nl::before{margin-right:4px}}
 .tt{position:fixed;inset:0;z-index:20;background:radial-gradient(ellipse at 50% 100%,rgba(157,77,255,.4),transparent 60%),#08050d;overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
 .tt[hidden]{display:none}
 .tt.show{animation:ttin .35s ease both}
@@ -92,14 +99,14 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
 .total{display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;padding:16px 0}
 .empty{opacity:.7}
 .close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:none;border:0;color:var(--bone);font-size:1.6rem}
-@media (prefers-reduced-motion:reduce){.ticker div,.bolt,.arrow{animation:none}*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.ticker div,.bolt,.arrow,.lb{animation:none}*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="promo">↯ 20% OFF EVERYTHING ↯ APPLIED AT CHECKOUT ↯</div>
 <header>
-  <a class="logo" href="#top"><svg viewBox="0 0 100 160" width="14" height="22" aria-hidden="true" style="vertical-align:-3px;margin-right:6px"><polygon points="60,0 10,90 45,90 30,160 90,60 55,60" fill="#9d4dff"/></svg>static resells</a>
-  <nav><a href="#shop">Shop</a><a class="ttbtn" href="#tiktok">@tiktok</a><a href="#about">About</a><button class="cartbtn" id="open" aria-label="Open cart">Cart (<span id="count">0</span>)</button></nav>
+  <a class="logo" href="#top" aria-label="static resells"><svg class="lb" viewBox="0 0 100 160" aria-hidden="true"><polygon points="60,0 10,90 45,90 30,160 90,60 55,60"/></svg><span class="lt"><span class="l1">STATIC</span><span class="l2">RESELLS</span></span></a>
+  <nav><a class="nl" href="#shop">Shop</a><a class="ttbtn" href="#tiktok">@tiktok</a><a class="nl" href="#about">About</a><button class="cartbtn" id="open" aria-label="Open cart">Cart (<span id="count">0</span>)</button></nav>
 </header>
 
 <main id="top">
