@@ -123,26 +123,14 @@ footer input{padding:12px 16px;border-radius:99px;border:0;min-width:0;font:inhe
 </aside>
 
 <script>
-const products=[
- {n:'Court Low',d:'Sneakers, size 10',p:85,c:'Shoes',bg:'#9d4dff',t:'New'},
- {n:'Midnight Runner',d:'Sneakers, size 9',p:110,c:'Shoes',bg:'#f2efe8'},
- {n:'Puffer 94',d:'Jacket, size L',p:140,c:'Jackets',bg:'#c9a2ff',t:'Last one'},
- {n:'Trail Shell',d:'Jacket, size M',p:95,c:'Jackets',bg:'#b17bff'},
- {n:'Box Hoodie',d:'Hoodie, size XL',p:60,c:'Tops',bg:'#d9c2ff'},
- {n:'Vintage Tee',d:'Tee, size M',p:35,c:'Tops',bg:'#f2efe8',t:'New'},
- {n:'Sling Bag',d:'Bag, one size',p:45,c:'Gear',bg:'#9d4dff'},
- {n:'Dad Cap',d:'Cap, adjustable',p:25,c:'Gear',bg:'#c9a2ff'},
- {n:'Cargo Pants',d:'Pants, size 32',p:55,c:'Clothing',bg:'#9d4dff',t:'New'},
- {n:'Track Shorts',d:'Shorts, size M',p:30,c:'Clothing',bg:'#d9c2ff'},
- {n:'Zip Fleece',d:'Fleece, size L',p:70,c:'Clothing',bg:'#b17bff'},
- {n:'Crew Socks',d:'3-pack, one size',p:15,c:'Clothing',bg:'#f2efe8'}
-];
-const cats=['All',...new Set(products.map(x=>x.c))];
+const products=[];
+const cats=['All','Shoes','Jackets','Tops','Gear','Clothing'];
 let cart=[],cur='All';
 const $=id=>document.getElementById(id);
 $('tick').innerHTML=Array(12).fill('NEW STUFF<b>↯</b>LIMITED PAIRS<b>↯</b>SHIPS FAST<b>↯</b>').join('');
 function drawFilters(){$('filters').innerHTML=cats.map(c=>`<button aria-pressed="${c===cur}" data-c="${c}">${c}</button>`).join('')}
 function drawGrid(){
+ if(!products.some(x=>cur==='All'||x.c===cur)){$('grid').innerHTML='<p style="grid-column:1/-1;font-size:1.2rem">Nothing here yet. New drops coming soon.</p>';return}
  $('grid').innerHTML=products.map((x,i)=>({x,i})).filter(o=>cur==='All'||o.x.c===cur).map(({x,i})=>`
  <article class="card"><div class="art" style="background:${x.bg}">${x.t?`<div class="tag">${x.t}</div>`:''}<span>${x.n.replace(' ','<br>')}</span></div>
  <div class="info"><h3>${x.n}<small>${x.d}</small></h3><div class="price">$${x.p}</div></div>
