@@ -44,7 +44,7 @@ nav .nl.ttbtn:hover,nav .nl.cartbtn:hover{box-shadow:0 0 28px #9d4dff}
 nav .nl:hover{background:#fff;color:var(--ink);box-shadow:0 0 28px #9d4dff;transform:skewX(-14deg) translateY(-2px)}
 
 
-@media (max-width:520px){header{padding:12px 14px;flex-wrap:wrap;row-gap:6px}header .hr{width:100%;align-items:center}header .hr p{text-align:center}header .rform{justify-content:center}nav{gap:8px;font-size:.85rem;width:100%;justify-content:center}.l1{font-size:1.15rem}.l2{font-size:.5rem;letter-spacing:.3em}.lb{width:13px;height:21px}.cartbtn{padding:7px 11px}nav .nl{padding:7px 13px 7px 10px;font-size:.74rem}nav .nl::before{margin-right:4px}}
+@media (max-width:520px){header{padding:12px 14px;flex-wrap:wrap;row-gap:6px}header .hr{width:100%;align-items:center}header .hr p{text-align:center}header .rform{justify-content:center}header .hrow{justify-content:center}nav{gap:8px;font-size:.85rem;width:100%;justify-content:center}.l1{font-size:1.15rem}.l2{font-size:.5rem;letter-spacing:.3em}.lb{width:13px;height:21px}.cartbtn{padding:7px 11px}nav .nl{padding:7px 13px 7px 10px;font-size:.74rem}nav .nl::before{margin-right:4px}}
 .tt{position:fixed;inset:0;z-index:20;background:radial-gradient(ellipse at 50% 100%,rgba(157,77,255,.4),transparent 60%),#08050d;overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
 .tt[hidden]{display:none}
 .tt.show{animation:ttin .35s ease both}
@@ -102,6 +102,7 @@ section{max-width:1200px;margin:0 auto;padding:20px}
 .rform[hidden]{display:none}
 .rform input{padding:8px 14px;font-size:.85rem;border-radius:99px;border:1.5px solid var(--hot);background:#150d20;color:#fff;font:inherit;min-width:0;box-shadow:0 0 14px rgba(157,77,255,.4)}
 #rmsg{margin:0}
+#rmsg.bad{color:#ff4040;font-weight:700;text-shadow:0 0 10px rgba(255,64,64,.5)}
 .tease{margin:6px 0 0;color:var(--hot);font-weight:700;text-shadow:0 0 12px rgba(157,77,255,.8)}
 footer{max-width:1200px;margin:0 auto;padding:40px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
 footer form{display:flex;gap:8px}
@@ -196,6 +197,19 @@ body::before{content:"";position:fixed;inset:-20%;background:radial-gradient(cir
 .hbtn::before{content:"\21af";margin-right:6px}
 .hbtn:hover{transform:skewX(-14deg) translateY(-2px);box-shadow:0 0 28px #9d4dff}
 .hbtn:active{transform:skewX(-14deg) scale(.92)}
+.hrow{display:flex;gap:8px;justify-content:flex-end}
+.login{position:fixed;inset:0;z-index:40;background:rgba(8,5,13,.88);display:flex;align-items:center;justify-content:center;padding:20px}
+.login[hidden]{display:none}
+.login.show{animation:ttin .35s ease both}
+.login.hide{animation:ttout .35s ease both}
+.lcard{position:relative;width:min(380px,100%);border:1.5px solid var(--hot);border-radius:8px;padding:30px 22px 24px;background:linear-gradient(160deg,rgba(157,77,255,.22),#0d0716);box-shadow:0 0 40px rgba(157,77,255,.5);text-align:center}
+.lcard h2{font-size:2rem;margin-bottom:8px}
+.lcard p{margin:0 0 16px;opacity:.85}
+.lcard input{width:100%;padding:12px 16px;border-radius:99px;border:1.5px solid var(--hot);background:#150d20;color:#fff;font:inherit;margin-bottom:12px}
+.lcard .cta{width:100%}
+.lcard .x{position:absolute;top:8px;right:12px;background:none;border:0;color:#fff;font-size:1.6rem}
+#lmsg{min-height:1.3em;margin:10px 0 0}
+#lmsg.bad{color:#ff4040;font-weight:700}
 #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:80}
 @media (prefers-reduced-motion:reduce){.ticker div,.bolt,.arrow,.lb,.l1,.band h3::before,.cta::after,#flash,.promo,body::before{animation:none}.arcs{display:none}@keyframes rise{from{opacity:0}}@keyframes drop{from{opacity:0}}@keyframes slidein{from{opacity:0}}@keyframes zapbolt{0%{opacity:0}30%,70%{opacity:1}100%{opacity:0}}}
 </style>
@@ -216,7 +230,7 @@ body::before{content:"";position:fixed;inset:-20%;background:radial-gradient(cir
 <header>
   <a class="logo" href="#top" aria-label="static resells"><svg class="lb" viewBox="0 0 100 160" aria-hidden="true"><polygon points="60,0 10,90 45,90 30,160 90,60 55,60"/></svg><span class="lt"><span class="l1">STATIC</span><span class="l2">RESELLS</span></span></a>
   <div class="hr">
-    <button class="rbtn" id="rbtn">↯ Redeem code</button>
+    <div class="hrow"><button class="rbtn" id="rbtn">↯ Redeem code</button><button class="rbtn" id="lbtn">Log in</button></div>
     <form class="rform" id="rform" hidden><input id="rcode" placeholder="Enter your code" aria-label="Discount code" autocomplete="off" autocapitalize="off"><button class="cta" type="submit">Apply</button></form>
     <p id="rmsg" role="status"></p>
     <p id="rtease" class="tease"></p>
@@ -267,6 +281,8 @@ body::before{content:"";position:fixed;inset:-20%;background:radial-gradient(cir
   </div>
 </div>
 
+<div class="login" id="login" hidden role="dialog" aria-label="Log in"><div class="lcard"><button class="x" id="lclose" aria-label="Close">×</button><h2>Log in</h2><p>Enter your email to log in and place orders.</p><form id="lform"><input id="lmail" type="email" placeholder="you@email.com" aria-label="Email" autocomplete="email" required><button class="cta" type="submit">Continue</button></form><p id="lmsg" role="status"></p></div></div>
+
 <aside class="drawer" id="drawer" aria-label="Cart">
   <button class="close" id="close" aria-label="Close cart">×</button>
   <h2>Your cart</h2>
@@ -301,14 +317,14 @@ $('items').onclick=e=>{const k=e.target.dataset.k;if(k!==undefined){cart.splice(
 let cT;function showCart(on){const d=$('drawer');clearTimeout(cT);if(on){d.classList.remove('closing');d.classList.add('open')}else if(d.classList.contains('open')){d.classList.remove('open');d.classList.add('closing');cT=setTimeout(()=>d.classList.remove('closing'),350)}}
 $('open').onclick=()=>showCart(true);
 $('close').onclick=()=>showCart(false);
-$('checkout').onclick=()=>{if(cart.length){alert('Checkout isn’t connected yet. Add a payment provider to take real orders.')}};
+$('checkout').onclick=()=>{if(!user){showLogin(true);return}if(cart.length){alert('Checkout isn’t connected yet. Add a payment provider to take real orders.')}};
 
 $('rbtn').onclick=()=>{const f=$('rform');f.hidden=!f.hidden;if(!f.hidden)$('rcode').focus()};
 const rot=s=>s.replace(/[a-z]/g,c=>String.fromCharCode((c.charCodeAt(0)-97+13)%26+97));
 const BAD=new Set('avttre avttn snttbg sna ergneq ergneqrq puvax fcvp xvxr genaal jrgonpx pbba tbbx cnxv'.split(' ').map(rot));
 function isBad(t){const L={'0':'o','1':'i','3':'e','4':'a','5':'s','7':'t','@':'a','$':'s','!':'i'};const n=t.toLowerCase().replace(/[013457@$!]/g,c=>L[c]);const w=n.split(/[^a-z]+/).filter(Boolean);return w.some(x=>BAD.has(x)||BAD.has(x.replace(/s$/,'')))||BAD.has(w.join(''))}
 const CODES={'onrelease':{p:.05,t:'5% off one purchase'},'code':{p:.01,t:'1% off one purchase'},'free':{p:.03,t:'3% off 5 purchases'},'cjwjac337!':{p:1,t:'Free purchases, unlimited'}};
-$('rform').onsubmit=e=>{e.preventDefault();const v=$('rcode').value.trim().toLowerCase(),m=$('rmsg'),c=Object.prototype.hasOwnProperty.call(CODES,v)?CODES[v]:null;$('rtease').textContent='';if(c){codePct=c.p;m.textContent='Code applied! '+c.t+'.';drawCart()}else if(isBad(v)){m.textContent='Hey! That’s not a code, and it’s also not a good word. Stop it!'}else{m.textContent='That code doesn’t work. Check the spelling and try again.';$('rtease').textContent='go to the official TikTok page and look in bio🤫'}};
+$('rform').onsubmit=e=>{e.preventDefault();const v=$('rcode').value.trim().toLowerCase(),m=$('rmsg'),c=Object.prototype.hasOwnProperty.call(CODES,v)?CODES[v]:null;$('rtease').textContent='';m.className='';if(c&&codePct){m.className='bad';m.textContent='Code already redeemed, you ain’t slick buddy oh pal!😭✌️'}else if(c){codePct=c.p;m.textContent='Code applied! '+c.t+'.';drawCart()}else if(isBad(v)){m.textContent='Hey! That’s not a code, and it’s also not a good word. Stop it!'}else{m.textContent='That code doesn’t work. Check the spelling and try again.';$('rtease').textContent='go to the official TikTok page and look in bio🤫'}};
 const cv=$('fx'),cx=cv.getContext('2d');let bolts=[],raf=0,lt=0;
 function fit(){const d=window.devicePixelRatio||1;cv.width=innerWidth*d;cv.height=innerHeight*d;cx.setTransform(d,0,0,d,0,0)}
 fit();addEventListener('resize',fit);
@@ -319,6 +335,14 @@ document.addEventListener('click',e=>{const b=e.target.closest('.filters button'
 let zT;function zapScreen(cb){const z=$('zap');clearTimeout(zT);z.classList.remove('on');void z.offsetWidth;z.classList.add('on');setTimeout(cb,450);zT=setTimeout(()=>z.classList.remove('on'),1300)}
 
 setTimeout(()=>{const l=$('loader');l.classList.add('out');document.body.classList.remove('lock');document.body.classList.add('go');setTimeout(()=>l.remove(),700)},1900);
+const FORM_URL='';
+let user=null;try{user=localStorage.getItem('sr_email')}catch(e){}
+function setUser(){$('lbtn').textContent=user?'Log out':'Log in'}
+let lgT;function showLogin(on){const d=$('login');clearTimeout(lgT);if(on){d.hidden=false;d.classList.remove('hide');d.classList.add('show');$('lmail').focus()}else if(!d.hidden){d.classList.remove('show');d.classList.add('hide');lgT=setTimeout(()=>{d.hidden=true;d.classList.remove('hide')},350)}}
+$('lbtn').onclick=()=>{if(user){user=null;try{localStorage.removeItem('sr_email')}catch(e){}setUser()}else showLogin(true)};
+$('lclose').onclick=()=>showLogin(false);
+$('lform').onsubmit=async e=>{e.preventDefault();const v=$('lmail').value.trim(),m=$('lmsg');m.className='';if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){m.className='bad';m.textContent='Enter a real email address.';return}if(FORM_URL){let ok=true;try{const r=await fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:v})});ok=r.ok}catch(err){ok=false}if(!ok){m.className='bad';m.textContent='Could not log in. Try again.';return}}user=v;try{localStorage.setItem('sr_email',v)}catch(err){}setUser();m.textContent='You’re in!';setTimeout(()=>showLogin(false),700)};
+setUser();
 const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.15}):null;
 function reveal(list){list.forEach((el,i)=>{el.classList.add('rv');el.style.setProperty('--d',(i%4*.1)+'s');if(io)io.observe(el);else el.classList.add('in')})}
 reveal(document.querySelectorAll('.bar,.band section>div,footer>*'));
